@@ -5,11 +5,19 @@ const app = express()
 const handlebars = require('express-handlebars');
 const port = 3000
 
+const route = require('./routes/index.js')
+
+//middleWare
+app.use(express.urlencoded({
+  extended: true,
+}));
+app.use(express.json())
+
 // static file - cac file tinh se di vao thu muc public
  app.use(express.static(path.join(__dirname, 'public')))
 
 // HTTP logger
-app.use(morgan('combined'))
+// app.use(morgan('combined'))
 
 // template engine
 app.engine('hbs', handlebars(
@@ -19,9 +27,14 @@ app.set('view engine', 'hbs');
 
 app.set('views', path.join(__dirname, 'resources/views'))
 
-app.get('/', (req, res) => {
-    res.render('news');
-})
+
+
+//routes init
+route(app)
+
+
+
+
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
