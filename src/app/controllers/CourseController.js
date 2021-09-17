@@ -32,6 +32,24 @@ class CourseController {
 
             })
     }
+
+    // [GET] /courses/edit/:id
+    edit(req, res, next) {
+        Course.findById(req.params.id)
+            .then(course =>  res.render('courses/edit', {
+                course: mongooseToObject(course)
+            }))
+            .catch(err => next(err))
+
+    }
+
+    // [PUT] /courses/:id
+    // req.params.id = :id in url
+    update(req, res, next) {
+        Course.updateOne({ _id: req.params.id}, req.body)
+            .then(() => res.redirect('/me/stored/courses'))
+            .catch(err => next(err))
+    }
 }
 
 module.exports = new CourseController();

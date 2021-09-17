@@ -1,0 +1,31 @@
+<div class="mt-4">
+    <div class="container">
+        <h3>Khoa hoc cua toi</h3>
+
+        <table class="table mt-4">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Level</th>
+                    <th scope="col">Create At</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each courses}}
+                <tr>
+                    <th scope="row">{{sum @index 1}}</th> 
+                    <td>{{this.name}}</td>
+                    <td>{{this.level}}</td>
+                    <td>{{this.createdAt}}</td>
+                    <td>
+                        <a href="/courses/edit/{{this._id}}" class="btn btn-link">Update</a>
+                        <a href="" class="btn btn-link">Delete</a>
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</div>

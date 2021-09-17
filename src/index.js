@@ -6,6 +6,7 @@ const handlebars = require('express-handlebars');
 const port = 3000;
 const route = require('./routes/index.js');
 const db = require('./config/db/index')
+const methodOverride = require('method-override')
 
 // connect database
 db.connect()
@@ -21,11 +22,20 @@ app.use(express.json());
 // static file - cac file tinh se di vao thu muc public
 app.use(express.static(path.join(__dirname, 'public')));
 
+// method override
+app.use(methodOverride('_method'))
+
 // HTTP logger
 // app.use(morgan('combined'))
 
 // template engine
-app.engine('hbs', handlebars({ extname: '.hbs' }));
+app.engine('hbs', 
+    handlebars({ 
+        extname: '.hbs',
+        helpers: {
+            sum: ( a, b ) => a + b ,
+        }
+    }));
 app.set('view engine', 'hbs');
 
 app.set('views', path.join(__dirname, 'resources', 'views'));
