@@ -8,8 +8,6 @@ class CourseController {
         Course.findOne({ slug: req.params.slug })
             .then(course => {
                 res.render('courses/show', {course: mongooseToObject(course)})
-                console.log(req.params.slug)
-                console.log(course)
             })
             .catch(next)
     }
@@ -49,6 +47,13 @@ class CourseController {
         Course.updateOne({ _id: req.params.id}, req.body)
             .then(() => res.redirect('/me/stored/courses'))
             .catch(err => next(err))
+    }
+
+    // [DELETE] /courses/:id
+    delete(req, res, next) {
+        Course.deleteOne({ _id: req.params.id})
+            .then(() => res.redirect('back'))
+            .catch(next)
     }
 }
 
